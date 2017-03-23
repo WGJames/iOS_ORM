@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "SQLTool.h"
+#import "FMDB.h"
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
-        NSLog(@"Hello, World!");
+        [SQLTool makeSQL:^(SQLTool<beginProtocolList> *tool) {
+            tool.select(@[@"",@""]).from(@"123").where.wholeCondition(@"");
+            NSLog(@"%@",tool.sql);
+        }];
     }
     return 0;
 }
