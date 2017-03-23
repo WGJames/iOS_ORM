@@ -13,13 +13,13 @@
 @protocol fromProtocol,whereProtocol,orderByProtocol;
 
 typedef SQLTool *(^OnlySQL)(id sql);
-typedef SQLTool <fromProtocol> *(^Select)(NSArray<NSString *> *columns);
-typedef SQLTool <whereProtocol, orderByProtocol>*(^From)(NSString *table);
-typedef SQLTool <whereProtocol>*(^Update)(NSString *tableName, NSString *list);
+typedef SQLTool <fromProtocol> *(^Select)(id columns);
+typedef SQLTool <whereProtocol, orderByProtocol>*(^From)(id table);
+typedef SQLTool <whereProtocol>*(^Update)(NSString *tableName, id valuelist);
 
-typedef SQLTool *(^Condition)(NSString *key, NSString *operate, NSString *value);
-typedef SQLTool *(^WholeCondition)(NSString *condition);
-typedef SQLTool *(^OrderBy)(NSArray<NSString *> *orderBys);
+typedef SQLTool <orderByProtocol>*(^Condition)(NSString *key, NSString *operate, NSString *value);
+typedef SQLTool <orderByProtocol>*(^WholeCondition)(NSString *condition);
+typedef SQLTool *(^OrderBy)(id orderBys);
 typedef SQLTool *(^Insert)(NSString *tableName, NSArray *keyList, NSArray *valueList);
 
 #pragma mark -- block

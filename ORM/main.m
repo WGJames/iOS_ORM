@@ -12,10 +12,11 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
-        [SQLTool makeSQL:^(SQLTool<beginProtocolList> *tool) {
-            tool.select(@[@"",@""]).from(@"123").where.wholeCondition(@"");
-            NSLog(@"%@",tool.sql);
+        NSString *result = [SQLTool makeSQL:^(SQLTool<beginProtocolList> *tool) {
+            tool.select(@"userId").from(@"user").where.wholeCondition(@"userId = 1234").orderBy(@[@"userName DESC, class ASC"]);
+            NSLog(@"operate sql = %@",tool.sql);
         }];
+        NSLog(@"result = %@",result);
     }
     return 0;
 }
