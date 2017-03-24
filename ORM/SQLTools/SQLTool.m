@@ -59,21 +59,32 @@ static inline BOOL validateParameterIsClass(id object, NSString *className) {
 }
 
 - (Insert)insert {
-    return nil;
+    return ^(NSString *table, NSArray *keyList) {
+        if (validateParameterIsClass(table, @"NSString")) {
+            if (validateParameterIsClass(keyList, @"NSArray")) {
+                NSString *keyString = [keyList componentsJoinedByString:@", "];
+                NSString *valueString = [keyList componentsJoinedByString:@", :"];
+                valueString = [NSString stringWithFormat:@":%@",valueString];
+                self.sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@) VALUES (%@)",table,keyString,valueString];
+            } else {
+                NSLog(@"the insert key list is invalid");
+            }
+        } else {
+            NSLog(@"the insert table is invalid");
+        }
+        return self;
+    };
 }
 
 - (Update)update {
-    return ^(NSString *table, id valueList) {
+    return ^(NSString *table, NSArray *keyList) {
         if (validateParameterIsClass(table, @"NSString")) {
-            self.sql = [NSString stringWithFormat:@"UPDATE %@ SET ",table];
-            if (validateParameterIsClass(valueList, @"NSString")) {
-                NSString *valueString = [NSString stringWithFormat:@"%@",valueList];
-                self.sql = [self.sql stringByAppendingString:valueString];
-            } else if (validateParameterIsClass(valueList, @"NSArray")) {
-                NSString *valueListString = [valueList componentsJoinedByString:@","];
-                self.sql = [self.sql stringByAppendingString:valueListString];
+            if (validateParameterIsClass(keyList, @"NSArray")) {
+                NSString *keyString = [keyList componentsJoinedByString:@" = ?,"];
+                NSString *updateString = [NSString stringWithFormat:@"%@ = ?",keyString];
+                self.sql = [NSString stringWithFormat:@"UPDATE %@ SET %@",table,updateString];
             } else {
-                NSLog(@"the update value list is invalid");
+                NSLog(@"the insert key list or value list is invalid");
             }
         } else {
             NSLog(@"the update table is invalid");

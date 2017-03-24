@@ -15,6 +15,10 @@ int main(int argc, const char * argv[]) {
         NSString *result = [SQLTool makeSQL:^(SQLTool<beginProtocolList> *tool) {
             tool.select(@"userId").from(@"user").where.wholeCondition(@"userId = 1234").orderBy(@[@"userName DESC, class ASC"]);
             NSLog(@"operate sql = %@",tool.sql);
+            tool.insert(@"user",@[@"userId",@"userName"]);
+            NSLog(@"operate sql = %@",tool.sql);
+            tool.update(@"user",@[@"userId",@"userName"]).where.wholeCondition(@"userId = 1234");
+            NSLog(@"operate sql = %@",tool.sql);
         }];
         NSLog(@"result = %@",result);
     }

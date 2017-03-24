@@ -23,6 +23,7 @@
 		1A576C601E836B3300413CC5 /* NSObject+DC_Reflection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A576C5A1E836B1500413CC5 /* NSObject+DC_Reflection.m */; };
 		1A576C661E836B8D00413CC5 /* NSArray+Help.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A576C631E836B8800413CC5 /* NSArray+Help.m */; };
 		1A576C671E836B9100413CC5 /* NSDictionary+Help.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A576C651E836B8800413CC5 /* NSDictionary+Help.m */; };
+		1A576C6D1E84F12900413CC5 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A576C6C1E84F12900413CC5 /* DatabaseManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -70,6 +71,8 @@
 		1A576C631E836B8800413CC5 /* NSArray+Help.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Help.m"; sourceTree = "<group>"; };
 		1A576C641E836B8800413CC5 /* NSDictionary+Help.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Help.h"; sourceTree = "<group>"; };
 		1A576C651E836B8800413CC5 /* NSDictionary+Help.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Help.m"; sourceTree = "<group>"; };
+		1A576C6B1E84F12900413CC5 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
+		1A576C6C1E84F12900413CC5 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,8 @@
 			children = (
 				1A576C431E8369DB00413CC5 /* SQLTool.h */,
 				1A576C441E8369DB00413CC5 /* SQLTool.m */,
+				1A576C6B1E84F12900413CC5 /* DatabaseManager.h */,
+				1A576C6C1E84F12900413CC5 /* DatabaseManager.m */,
 			);
 			path = SQLTools;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 				1A576C491E836AA900413CC5 /* FMResultSet.m in Sources */,
 				1A576C481E836AA400413CC5 /* FMDatabaseQueue.m in Sources */,
 				1A576C471E836AA000413CC5 /* FMDatabasePool.m in Sources */,
+				1A576C6D1E84F12900413CC5 /* DatabaseManager.m in Sources */,
 				1A576C461E836A9D00413CC5 /* FMDatabaseAdditions.m in Sources */,
 				1A576C451E836A9900413CC5 /* FMDatabase.m in Sources */,
 				1A576C301E8369BB00413CC5 /* main.m in Sources */,
@@ -379,6 +385,7 @@
 				1A576C351E8369BB00413CC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
