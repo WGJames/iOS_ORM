@@ -7,6 +7,7 @@
 //
 
 #import "NSArray+Help.h"
+#import "NSDictionary+Help.h"
 
 @implementation NSArray (Help)
 - (id)safty_objectAtIndex:(NSUInteger)index {
@@ -22,5 +23,15 @@
     } else {
         return [self array];
     }
+}
+
+- (NSArray *)getValueListFromDictionaryListWithKey:(NSString *)key {
+    NSMutableArray *list = [NSMutableArray array];
+    for (NSObject *object in self) {
+        if ([object isKindOfClass:[NSDictionary class]]) {
+            [list addObject:[(NSDictionary *)object safty_objectForKey:key]];
+        }
+    }
+    return list;
 }
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+SQLHelper.h"
+#import "NSArray+Help.h"
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 @implementation NSObject (SQLHelper)
 + (void)createTableSQLOperation {
@@ -34,6 +35,10 @@
 }
 
 + (NSArray *)getColumnListFromTableName {
-    return nil;
+    NSString *SQLString = [NSString stringWithFormat:@"PRAGMA table_info([%@])",[self modelTableName]];
+    NSArray *resultList = [[DatabaseManager sharedDatabaseManager] executeQueryWithSQL:^(SQLTool<beginProtocolList> *tool) {
+        tool.onlySQL(SQLString);
+    }];
+    return [resultList getValueListFromDictionaryListWithKey:@"name"];
 }
 @end

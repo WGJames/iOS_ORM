@@ -75,12 +75,20 @@ static DatabaseManager *sharedDBManager = nil;
     return NO;
 }
 
-- (FMResultSet *)executeQueryWithSQL:(void(^)(SQLTool<beginProtocolList> *tool))block {
+- (NSArray *)executeQueryWithSQL:(void(^)(SQLTool<beginProtocolList> *tool))block {
     if (block) {
         SQLTool<beginProtocolList> *tool = [[SQLTool<beginProtocolList> alloc] init];
         block(tool);
-        return [database executeQuery:tool.SQLString];
+        return [self getResultArrayFromFMResultSet:[database executeQuery:tool.SQLString]];
     }
     return NO;
+}
+
+- (NSArray *)getResultArrayFromFMResultSet:(FMResultSet *)resultSet {
+    NSMutableArray *resultArray = [NSMutableArray array];
+    while ([resultSet next]) {
+        [resultArray addObject:[resultSet resultDictionary]];
+    };
+    return resultArray;
 }
 @end

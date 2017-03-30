@@ -12,4 +12,6 @@
 - (id)safty_objectAtIndex:(NSUInteger)index;
 
 + (instancetype)safty_arrayWithArray:(NSObject *)array;
+
+- (NSArray *)getValueListFromDictionaryListWithKey:(NSString *)key;
 @end

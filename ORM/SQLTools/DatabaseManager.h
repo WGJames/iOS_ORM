@@ -26,5 +26,5 @@
 
 - (BOOL)executeUpdateWithSQL:(void(^)(SQLTool<beginProtocolList> *tool))block Dictionary:(NSDictionary *)dictionary;
 
-- (FMResultSet *)executeQueryWithSQL:(void(^)(SQLTool<beginProtocolList> *tool))block;
+- (NSArray *)executeQueryWithSQL:(void(^)(SQLTool<beginProtocolList> *tool))block;
 @end

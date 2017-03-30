@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DatabaseManager.h"
+#import "NSArray+Help.h"
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
