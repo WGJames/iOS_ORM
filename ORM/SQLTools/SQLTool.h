@@ -69,6 +69,5 @@ typedef SQLTool *(^Insert)(NSString *tableName, NSArray *keyList);
 
 #pragma mark -- interface
 @interface SQLTool : NSObject
-+ (NSString *)makeSQL:(void(^)(SQLTool<beginProtocolList> *tool))block;
-@property (nonatomic, strong) NSString *sql;
+@property (nonatomic, strong, readonly) NSString *SQLString;
 @end

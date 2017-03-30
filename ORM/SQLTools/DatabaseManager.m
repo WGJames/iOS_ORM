@@ -7,6 +7,7 @@
 //
 
 #import "DatabaseManager.h"
+#import "User.h"
 static NSString *const NSDATE_DEFAULT_FORMART = @"yyyy-MM-dd";
 static DatabaseManager *sharedDBManager = nil;
 @implementation DatabaseManager
@@ -27,10 +28,13 @@ static DatabaseManager *sharedDBManager = nil;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [paths firstObject];
     filePath = [filePath stringByAppendingString:[NSString stringWithFormat:@"/%@.db",fileName]];
+    NSLog(@"database file path is %@",filePath);
     database = [FMDatabase databaseWithPath:filePath];
+    [self openCurrentDatabase];
+    [User createTableSQLOperation];
 }
 
-- (void)openDatabase {
+- (void)openCurrentDatabase {
     if ([database open]) {
         [database setDateFormat:[FMDatabase storeableDateFormat:NSDATE_DEFAULT_FORMART]];
     } else {
@@ -38,26 +42,45 @@ static DatabaseManager *sharedDBManager = nil;
     }
 }
 
-- (void)closeDatabase {
+- (void)closeCurrentDatabase {
     if (![database close]) {
         NSLog(@"the database couldn't close!");
     }
 }
 
-- (BOOL)executeUpdateWithSQLString:(NSString *)SQLString {
-    return [database executeUpdate:SQLString];
+- (BOOL)executeUpdateWithSQL:(void(^)(SQLTool<beginProtocolList> *tool))block {
+    if (block) {
+        SQLTool<beginProtocolList> *tool = [[SQLTool<beginProtocolList> alloc] init];
+        block(tool);
+        return [database executeUpdate:tool.SQLString];
+    }
+    return NO;
+};
+
+- (BOOL)executeUpdateWithSQL:(void(^)(SQLTool<beginProtocolList> *tool))block Array:(NSArray *)array {
+    if (block) {
+        SQLTool<beginProtocolList> *tool = [[SQLTool<beginProtocolList> alloc] init];
+        block(tool);
+        return [database executeUpdate:tool.SQLString withArgumentsInArray:array];
+    }
+    return NO;
 }
 
-- (FMResultSet *)executeQueryWithSQLString:(NSString *)SQLString {
-    return [database executeQuery:SQLString];
+- (BOOL)executeUpdateWithSQL:(void(^)(SQLTool<beginProtocolList> *tool))block Dictionary:(NSDictionary *)dictionary {
+    if (block) {
+        SQLTool<beginProtocolList> *tool = [[SQLTool<beginProtocolList> alloc] init];
+        block(tool);
+        return [database executeUpdate:tool.SQLString withParameterDictionary:dictionary];
+    }
+    return NO;
 }
 
-- (BOOL)executeUpdateWithSQLString:(NSString *)SQLString Dictionary:(NSDictionary *)dictionary {
-    return [database executeUpdate:SQLString withParameterDictionary:dictionary];
+- (FMResultSet *)executeQueryWithSQL:(void(^)(SQLTool<beginProtocolList> *tool))block {
+    if (block) {
+        SQLTool<beginProtocolList> *tool = [[SQLTool<beginProtocolList> alloc] init];
+        block(tool);
+        return [database executeQuery:tool.SQLString];
+    }
+    return NO;
 }
-
-- (BOOL)executeUpdateWithSQLString:(NSString *)SQLString Array:(NSArray *)array {
-    return [database executeUpdate:SQLString withArgumentsInArray:array];
-}
-
 @end

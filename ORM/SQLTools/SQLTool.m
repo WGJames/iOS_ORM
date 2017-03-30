@@ -18,20 +18,13 @@ static inline BOOL validateParameterIsClass(id object, NSString *className) {
 @interface SQLTool ()<selectProtocol,fromProtocol,whereProtocol,onlySQLProtocol,insertPotocol,updateProtocol,onlySQLProtocol,deleteProtocol,orderByProtocol,conditionProtocol,wholeConditionProtocol,deleteProtocol>
 @end
 @implementation SQLTool
+@synthesize SQLString;
 
-+ (NSString *)makeSQL:(void(^)(SQLTool<beginProtocolList> *tool))block {
-    if (block) {
-        SQLTool<beginProtocolList> *tool = [[SQLTool<beginProtocolList> alloc] init];
-        block(tool);
-        return tool.sql;
-    }
-    return nil;
-}
 #pragma mark - block
 - (OnlySQL)onlySQL {
     return ^(id sql) {
         if (validateParameterIsClass(sql, @"NSString")) {
-            self.sql = sql;
+            SQLString = sql;
         } else {
             NSLog(@"the only sql is invalid");
         }
@@ -45,12 +38,12 @@ static inline BOOL validateParameterIsClass(id object, NSString *className) {
             NSArray *columnList = [NSArray safty_arrayWithArray:columns];
             if (columnList.count > 0) {
                 NSString *columnsString = [columnList componentsJoinedByString:@","];
-                self.sql = [NSString stringWithFormat:@"SELECT %@",columnsString];
+                SQLString = [NSString stringWithFormat:@"SELECT %@",columnsString];
             } else {
-                self.sql = @"SELECT *";
+                SQLString = @"SELECT *";
             }
         } else if (validateParameterIsClass(columns, @"NSString")) {
-            self.sql = [NSString stringWithFormat:@"SELECT %@",columns];
+            SQLString = [NSString stringWithFormat:@"SELECT %@",columns];
         } else {
             NSLog(@"the select is invalid");
         }
@@ -65,7 +58,7 @@ static inline BOOL validateParameterIsClass(id object, NSString *className) {
                 NSString *keyString = [keyList componentsJoinedByString:@", "];
                 NSString *valueString = [keyList componentsJoinedByString:@", :"];
                 valueString = [NSString stringWithFormat:@":%@",valueString];
-                self.sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@) VALUES (%@)",table,keyString,valueString];
+                SQLString = [NSString stringWithFormat:@"INSERT INTO %@ (%@) VALUES (%@)",table,keyString,valueString];
             } else {
                 NSLog(@"the insert key list is invalid");
             }
@@ -82,7 +75,7 @@ static inline BOOL validateParameterIsClass(id object, NSString *className) {
             if (validateParameterIsClass(keyList, @"NSArray")) {
                 NSString *keyString = [keyList componentsJoinedByString:@" = ?,"];
                 NSString *updateString = [NSString stringWithFormat:@"%@ = ?",keyString];
-                self.sql = [NSString stringWithFormat:@"UPDATE %@ SET %@",table,updateString];
+                SQLString = [NSString stringWithFormat:@"UPDATE %@ SET %@",table,updateString];
             } else {
                 NSLog(@"the insert key list or value list is invalid");
             }
@@ -97,11 +90,11 @@ static inline BOOL validateParameterIsClass(id object, NSString *className) {
     return ^(id table) {
         if (validateParameterIsClass(table, @"NSString")) {
             NSString *fromString = [NSString stringWithFormat:@" FROM %@",table];
-            self.sql = [self.sql stringByAppendingString:fromString];
+            SQLString = [SQLString stringByAppendingString:fromString];
         } else if (validateParameterIsClass(table, @"NSArray")){
             NSArray *tableList = [NSArray safty_arrayWithArray:table];
             NSString *tableListString = [tableList componentsJoinedByString:@","];
-            self.sql = [self.sql stringByAppendingString:[NSString stringWithFormat:@" FROM %@",tableListString]];
+            SQLString = [SQLString stringByAppendingString:[NSString stringWithFormat:@" FROM %@",tableListString]];
         } else {
             NSLog(@"the from is invalid");
         }
@@ -114,10 +107,10 @@ static inline BOOL validateParameterIsClass(id object, NSString *className) {
         if (validateParameterIsClass(orderBys, @"NSArray")) {
             NSArray *orderByList = [NSArray safty_arrayWithArray:orderBys];
             NSString *orderByString = [orderByList componentsJoinedByString:@","];
-            self.sql = [self.sql stringByAppendingString:[NSString stringWithFormat:@" ORDER BY %@",orderByString]];
+            SQLString = [SQLString stringByAppendingString:[NSString stringWithFormat:@" ORDER BY %@",orderByString]];
         } else if (validateParameterIsClass(orderBys, @"NSString")){
             NSString *orderByString = [NSString stringWithFormat:@" ORDER BY %@",orderBys];
-            self.sql = [self.sql stringByAppendingString:orderByString];
+            SQLString = [SQLString stringByAppendingString:orderByString];
         } else {
             NSLog(@"the orderBy is invalid");
         }
@@ -128,6 +121,8 @@ static inline BOOL validateParameterIsClass(id object, NSString *className) {
 
 - (Condition)condition {
     return ^(NSString *key, NSString *operate, NSString *value) {
+        NSString *conditionSQL = [NSString stringWithFormat:@" %@ %@ %@",key,operate,value];
+        SQLString = [SQLString stringByAppendingString:conditionSQL];
         return self;
     };
 }
@@ -136,7 +131,7 @@ static inline BOOL validateParameterIsClass(id object, NSString *className) {
     return ^(NSString *condition) {
         if (validateParameterIsClass(condition, @"NSString")) {
             NSString *wholeCondition = [NSString stringWithFormat:@" %@",condition];
-            self.sql = [self.sql stringByAppendingString:wholeCondition];
+            SQLString = [SQLString stringByAppendingString:wholeCondition];
         } else {
             NSLog(@"the whole condition is invalid");
         }
@@ -146,12 +141,12 @@ static inline BOOL validateParameterIsClass(id object, NSString *className) {
 
 #pragma mark -- SQLTool
 - (SQLTool *)where {
-    self.sql = [self.sql stringByAppendingString:@" WHERE"];
+    SQLString = [SQLString stringByAppendingString:@" WHERE"];
     return self;
 }
 
 - (SQLTool *)sql_delete {
-    self.sql = @"DELETE";
+    SQLString = @"DELETE";
     return self;
 }
 

@@ -7,20 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SQLTool.h"
-#import "FMDB.h"
+#import "DatabaseManager.h"
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
-        NSString *result = [SQLTool makeSQL:^(SQLTool<beginProtocolList> *tool) {
-            tool.select(@"userId").from(@"user").where.wholeCondition(@"userId = 1234").orderBy(@[@"userName DESC, class ASC"]);
-            NSLog(@"operate sql = %@",tool.sql);
-            tool.insert(@"user",@[@"userId",@"userName"]);
-            NSLog(@"operate sql = %@",tool.sql);
-            tool.update(@"user",@[@"userId",@"userName"]).where.wholeCondition(@"userId = 1234");
-            NSLog(@"operate sql = %@",tool.sql);
+        [[DatabaseManager sharedDatabaseManager] initDatabaseWithFileName:@"test"];
+        [[DatabaseManager sharedDatabaseManager] executeQueryWithSQL:^(SQLTool<beginProtocolList> *tool) {
+            tool.select(@"*").from(@"user").where.condition(@"userId",@"=",@"123232");
+            NSLog(@"%@",tool.SQLString);
         }];
-        NSLog(@"result = %@",result);
     }
     return 0;
 }

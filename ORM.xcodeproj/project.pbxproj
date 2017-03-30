@@ -24,6 +24,8 @@
 		1A576C661E836B8D00413CC5 /* NSArray+Help.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A576C631E836B8800413CC5 /* NSArray+Help.m */; };
 		1A576C671E836B9100413CC5 /* NSDictionary+Help.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A576C651E836B8800413CC5 /* NSDictionary+Help.m */; };
 		1A576C6D1E84F12900413CC5 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A576C6C1E84F12900413CC5 /* DatabaseManager.m */; };
+		1ADE7D3E1E8CD7E40015B0E8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADE7D3D1E8CD7E40015B0E8 /* User.m */; };
+		1ADE7D411E8CE7FA0015B0E8 /* NSObject+SQLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADE7D401E8CE7FA0015B0E8 /* NSObject+SQLHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +75,10 @@
 		1A576C651E836B8800413CC5 /* NSDictionary+Help.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Help.m"; sourceTree = "<group>"; };
 		1A576C6B1E84F12900413CC5 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		1A576C6C1E84F12900413CC5 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
+		1ADE7D3C1E8CD7E40015B0E8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		1ADE7D3D1E8CD7E40015B0E8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		1ADE7D3F1E8CE7FA0015B0E8 /* NSObject+SQLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SQLHelper.h"; sourceTree = "<group>"; };
+		1ADE7D401E8CE7FA0015B0E8 /* NSObject+SQLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SQLHelper.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +147,10 @@
 				1A576C441E8369DB00413CC5 /* SQLTool.m */,
 				1A576C6B1E84F12900413CC5 /* DatabaseManager.h */,
 				1A576C6C1E84F12900413CC5 /* DatabaseManager.m */,
+				1ADE7D3C1E8CD7E40015B0E8 /* User.h */,
+				1ADE7D3D1E8CD7E40015B0E8 /* User.m */,
+				1ADE7D3F1E8CE7FA0015B0E8 /* NSObject+SQLHelper.h */,
+				1ADE7D401E8CE7FA0015B0E8 /* NSObject+SQLHelper.m */,
 			);
 			path = SQLTools;
 			sourceTree = "<group>";
@@ -242,7 +252,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A576C671E836B9100413CC5 /* NSDictionary+Help.m in Sources */,
+				1ADE7D411E8CE7FA0015B0E8 /* NSObject+SQLHelper.m in Sources */,
 				1A576C661E836B8D00413CC5 /* NSArray+Help.m in Sources */,
+				1ADE7D3E1E8CD7E40015B0E8 /* User.m in Sources */,
 				1A576C601E836B3300413CC5 /* NSObject+DC_Reflection.m in Sources */,
 				1A576C5F1E836B2F00413CC5 /* NSObject+DC_Properties.m in Sources */,
 				1A576C5E1E836B2B00413CC5 /* NSObject+DC_JSON.m in Sources */,
